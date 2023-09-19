@@ -89,7 +89,7 @@ public class UrlToShort {
     }
 
     public String generateCode(){
-        String permitedCaracter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        String permitedCaracter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#!$%";
 
         SecureRandom random = new SecureRandom();
         StringBuilder code = new StringBuilder();
