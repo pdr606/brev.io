@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=6076
+      - MYSQL_ROOT_USER=root
+      - MYSQL_PASSWORD=6076
+    networks:
+      - backend
+    ports:
+      - "3306:3306" 
+  application:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge

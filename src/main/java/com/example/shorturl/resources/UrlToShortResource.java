@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.*;
 public class UrlToShortResource {
 
 
-    @Value("${app.base.url}")
+    @Value("${api.base.url}")
     private String baseUrl;
     @Autowired
     private UrlToShortService urlToShortService;
 
     @PostMapping
-    public ResponseEntity<UrlResonseDTO> generateShortUrl(@RequestBody UrlDTO data){
+    public ResponseEntity<UrlResonseDTO> generateShortUrl(@RequestBody UrlDTO data) {
         UrlToShort objUrlShort = new UrlToShort(null, data.url());
         urlToShortService.createShortUrl(objUrlShort);
         UrlResonseDTO urlResponse = new UrlResonseDTO(baseUrl + objUrlShort.getCodeOfUrl());
@@ -31,7 +31,7 @@ public class UrlToShortResource {
     }
 
     @PostMapping(value = "/customize")
-    public ResponseEntity<UrlResonseDTO> generateCustomizeUrl(@RequestBody UrlCustomizeData data){
+    public ResponseEntity<UrlResonseDTO> generateCustomizeUrl(@RequestBody UrlCustomizeData data) {
         urlToShortService.checkIfCodeExist(data.code());
         UrlToShort objUrlShort = new UrlToShort(null, data.url(), data.code());
         UrlResonseDTO urlResponse = new UrlResonseDTO(baseUrl + objUrlShort.getCodeOfUrl());
@@ -40,7 +40,7 @@ public class UrlToShortResource {
     }
 
     @GetMapping(value = "/{code}")
-    public ResponseEntity<UrlStatsResponseDTO> searchShortUrl(@PathVariable String code){
+    public ResponseEntity<UrlStatsResponseDTO> searchShortUrl(@PathVariable String code) {
         UrlToShort objUrlShort = urlToShortService.findUrlByCode(code);
         return ResponseEntity.ok().body(new UrlStatsResponseDTO(objUrlShort.getOriginalUrl(), objUrlShort.getNumberOfAcess(), objUrlShort.getDateOfLastAcess()));
     }
